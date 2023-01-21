@@ -1,0 +1,15 @@
+name: ci_sonarcloud
+on:
+  pull_request:
+    branch:
+      - develop
+jobs:
+  run-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.19
+      - run: go test sum.go sum_test.go -coverprofile=coverage.out
+      - run: go run sum.go
